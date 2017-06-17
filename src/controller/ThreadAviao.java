@@ -27,7 +27,7 @@ private String nome;
             this.setPriority(MAX_PRIORITY);
             this.sleep(tempo);
             semaforo.release();
-                System.out.println(this.getName()+ " está Aterrissando"+ d.format(new Date()));
+                System.out.println(this.getName()+ " está Aterrissando "+ d.format(new Date()));
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadAviao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -37,9 +37,10 @@ private String nome;
     }
 
      private synchronized void aviaoTaxiandoChegada() {
-        System.out.println(this.getName() + " está taxiando(Chegada)");
+        System.out.println(this.getName() + " está taxiando(Chegada)"+ d.format(new Date()));
         int tempo = (int) ((Math.random() * 200) + 100);
         try {
+            this.setPriority(NORM_PRIORITY);
             this.sleep(tempo);
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadAviao.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,7 +50,7 @@ private String nome;
         this.setPriority(5);
     }
     private synchronized void aviaoDecolando() {
-        System.out.println(this.getName()+ " está Decolando"+ d.format(new Date()));
+        System.out.println(this.getName()+ " está Decolando "+ d.format(new Date()));
         int tempo = (int) (2000);
         try {
             
@@ -68,9 +69,10 @@ private String nome;
    
 
     private synchronized void aviaoTaxiandoSaida() {
-        System.out.println(this.getName()+ " está taxiando(Saida)");
+        System.out.println(this.getName()+ " está taxiando(Saida)"+ d.format(new Date()));
         int tempo = (int) ((Math.random() * 100) + 100);
         try {
+            this.setPriority(NORM_PRIORITY);
             this.sleep(tempo);
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadAviao.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,9 +83,10 @@ private String nome;
     }
 
     private synchronized void aviaoEstacionado() {
-        System.out.println(this.getName()+" está Estacionado");
+        System.out.println(this.getName()+" está Estacionado"+ d.format(new Date()));
         int tempo = (int) ((Math.random() * 300) + 500);
         try {
+            this.setPriority(MIN_PRIORITY);
             this.sleep(tempo);
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadAviao.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,10 +110,12 @@ private String nome;
         try {
             
             semaforo.acquire();
-            aviaoDecolando();
-   
-             aviaoAterrissando();
-            //aviaoEstacionado();
+            aviaoAterrissando();
+            aviaoTaxiandoChegada();
+            aviaoEstacionado();
+            aviaoTaxiandoSaida();
+            aviaoDecolando();       
+            
           
         } catch (InterruptedException ex) {
             Logger.getLogger(ThreadAviao.class.getName()).log(Level.SEVERE, null, ex);
