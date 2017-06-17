@@ -38,7 +38,7 @@ private String nome;
 
      private synchronized void aviaoTaxiandoChegada() {
         System.out.println(this.getName() + " está taxiando(Chegada)"+ d.format(new Date()));
-        int tempo = (int) ((Math.random() * 200) + 100);
+        int tempo = (int) ((Math.random() * 200) + 2000);
         try {
             this.setPriority(NORM_PRIORITY);
             this.sleep(tempo);
@@ -51,9 +51,9 @@ private String nome;
     }
     private synchronized void aviaoDecolando() {
         System.out.println(this.getName()+ " está Decolando "+ d.format(new Date()));
-        int tempo = (int) (2000);
+        int tempo = (int) ((Math.random() * 300) + 2000);
         try {
-            
+           this.setPriority(MAX_PRIORITY); 
             this.sleep(tempo);
             semaforo.release();
             
@@ -70,7 +70,7 @@ private String nome;
 
     private synchronized void aviaoTaxiandoSaida() {
         System.out.println(this.getName()+ " está taxiando(Saida)"+ d.format(new Date()));
-        int tempo = (int) ((Math.random() * 100) + 100);
+        int tempo = (int) ((Math.random() * 200) + 2000);
         try {
             this.setPriority(NORM_PRIORITY);
             this.sleep(tempo);
@@ -95,6 +95,7 @@ private String nome;
         //this.estado = "TaxiandoSaida";
         this.setPriority(1);
     }
+    
     private synchronized void usarPista(int estado){
         for (int i=1; i>=6; i++){
             
