@@ -8,7 +8,6 @@ import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class Main {
 
     /**
@@ -17,28 +16,23 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         int permissoes = 1;
-        
+
         Semaphore semaforo = new Semaphore(permissoes);
-        
-        ArrayList<Integer> a = new ArrayList<Integer> ();
-        a.add(1);
-        a.add(5);
-        a.add(9);
-        a.add(10);
-        
-        for(int cta = 1; cta <= 6; cta++){
-            Thread t = new ThreadAviao(cta, semaforo);
-            Random r = new Random();
-            t.setPriority(a.get(r.nextInt(3)));
+         System.out.println("Log da Torre de controle:\n");
+        for (int i = 1; i <= 6; i++) {
+            Thread t = new ThreadAviao("Avião #"+i, semaforo);
             t.start();
-            try {
-                t.join();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            // Random r = new Random();
+            //  t.setPriority(a.get(r.nextInt(3)));
+           // t.getPriority();
            
+            
+//            try {
+//                t.join();
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
+
     }
-    
 }
